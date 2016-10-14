@@ -62,7 +62,7 @@ y)
     then
       dpd_timeout="120s"
       else
-       dpd_timeout="$dpd_timeouts"
+       dpd_timeout="$dpd_timeout"
    fi
    echo "${green}set the DPD (dead peer detection) delay ${yellow}[if empty default to 30 seconds]${reset}"
    echo "${red}TIP:defines the period time interval with which DPD packets are sent to the peer.${reset}"
