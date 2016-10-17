@@ -139,9 +139,9 @@ check_and_print dh.txt y
 esp_dh=$param
 
 echo "${green}set how the tunnel needs to be treated during the strongswan start [possibile values are start|route|add] - ${yellow}[if empty default to start]${reset}"
-echo "${green}start: loads a connection and brings it up immediately [initiator behviour]${reset}"
-echo "${green}route: If traffic is detected between local and remote, a connection is established${reset}"
-echo "${green}add: loads a connection without starting it.it won't start the connection immediatly: but waits that the other peer starts it [responder behaviour]${reset}"
+echo "${red}start: loads a connection and brings it up immediately [initiator behviour]${reset}"
+echo "${red}route: If traffic is detected between local and remote, a connection is established${reset}"
+echo "${red}add: loads a connection without starting it.it won't start the connection immediatly: but waits that the other peer starts it [responder behaviour]${reset}"
 read auto
 
 echo "${green}set the ID of the local peer [i.e fqdn or ip] - ${yellow}[if empty default to IP address of the local public-network interface]${reset}"
