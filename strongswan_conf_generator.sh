@@ -5,6 +5,7 @@
 red=`tput setaf 1`
 green=`tput setaf 2`
 yellow=`tput setaf 3`
+white=`tput setaf 7`
 reset=`tput sgr0`
 
 function check_and_print()
@@ -113,7 +114,7 @@ lifetime=$lifetime"h"
 echo "${green}set the ike encryption/authentication [phase 1] algorithms to be used${reset}"
 echo "${green}ike encryption${yellow}[empty value not allowed]${reset}"
 check_and_print enc.txt n
-ike_enc=$param 
+ike_enc=$param
 
 echo "${green}ike integrity${yellow}[empty value not allowed]${reset}"
 check_and_print int.txt n
@@ -132,15 +133,15 @@ esp_enc=$param
 echo "${green}esp integrity${reset}"
 check_and_print int.txt n
 esp_int=$param
- 
+
 echo "${green}esp dhgroup [empty to not use it]${reset}"
 check_and_print dh.txt y
 esp_dh=$param
 
 echo "${green}set how the tunnel needs to be treated during the strongswan start [possibile values are start|route|add] - ${yellow}[if empty default to start]${reset}"
-echo "${red}start: loads a connection and brings it up immediately [initiator behviour]${reset}"
-echo "${red}route: If traffic is detected between local and remote, a connection is established${reset}"
-echo "${red}add: loads a connection without starting it.it won't start the connection immediatly: but waits that the other peer starts it [responder behaviour]${reset}"
+echo "${green}start: loads a connection and brings it up immediately [initiator behviour]${reset}"
+echo "${green}route: If traffic is detected between local and remote, a connection is established${reset}"
+echo "${green}add: loads a connection without starting it.it won't start the connection immediatly: but waits that the other peer starts it [responder behaviour]${reset}"
 read auto
 
 echo "${green}set the ID of the local peer [i.e fqdn or ip] - ${yellow}[if empty default to IP address of the local public-network interface]${reset}"
@@ -162,44 +163,44 @@ echo "${green}do you want to enable compression IPComp ${yellow}[possibile value
 read comp
 
 echo "${yellow}add in your ipsec.secret file these values${reset}"
-echo "${green}"$local_id  $remote_id : PSK "\"Yoursupersecretpassword\"${reset}"
+echo "${white} $local_id  $remote_id : PSK "\"Yoursupersecretpassword\""${reset}"
 echo " "
 echo "${yellow}copy and paste the below lines in your ipsec.conf file${reset}"
-echo "======================================================"
-echo "conn $conn_name"
-echo "    type=tunnel"
-echo "    keyexchange=ikev1"
-echo "    leftauth=psk"
-echo "    rightauth=psk"
+echo "${white}======================================================${reset}"
+echo "${white}conn $conn_name${reset}"
+echo "${white}    type=tunnel${reset}"
+echo "${white}    keyexchange=ikev1${reset}"
+echo "${white}    leftauth=psk${reset}"
+echo "${white}    rightauth=psk${reset}"
 if [ $reply = "y" ]
 then
-echo "    dpdtimeout=$dpd_timeout"
-echo "    dpddelay=$dpd_delay"
+echo "${white}    dpdtimeout=$dpd_timeout${reset}"
+echo "${white}    dpddelay=$dpd_delay${reset}"
 fi
-echo "    dpdaction=$dpd_action"
-echo "    leftsubnet=$left_subnet"
-echo "    rightsubnet=$rightsubnet"
-echo "    right=$right_ip"
-echo "    left=$left_ip"
-echo "    ikelifetime=$ike_lifetime"
-echo "    lifetime=$lifetime"
-echo "    ike=$ike_enc"-"$ike_int"-"$ike_dh!"
+echo "${white}    dpdaction=$dpd_action${reset}"
+echo "${white}    leftsubnet=$left_subnet${reset}"
+echo "${white}    rightsubnet=$rightsubnet${reset}"
+echo "${white}    right=$right_ip${reset}"
+echo "${white}    left=$left_ip${reset}"
+echo "${white}    ikelifetime=$ike_lifetime${reset}"
+echo "${white}    lifetime=$lifetime${reset}"
+echo "${white}    ike=$ike_enc"-"$ike_int"-"$ike_dh!${reset}"
 if [ ! -z $esp_dh ]
  then
-   echo "    esp=$esp_enc-$esp_int-$esp_dh!"
+   echo "${white}    esp=$esp_enc-$esp_int-$esp_dh!${reset}"
 else
-   echo "    esp=$esp_enc-$esp_int!"
+   echo "${white}    esp=$esp_enc-$esp_int!${reset}"
 fi
 if [ ! -z $auto ]
  then
-   echo "    auto=$auto"
+   echo "${white}    auto=$auto${reset}"
  else
-   echo "    auto=start"
+   echo "${white}    auto=start${reset}"
 fi
-echo "    leftid=$local_id"
-echo "    rightid=$remote_id"
+echo "${white}    leftid=$local_id${reset}"
+echo "${white}    rightid=$remote_id${reset}"
 if [ ! -z $comp ] && [ $comp = "yes" ]
  then
-   echo "    compress=$comp"
+   echo "${white}    compress=$comp${reset}"
 fi
-echo "====================================================="
+echo "${white}=====================================================${reset}"
